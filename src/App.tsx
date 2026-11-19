@@ -6,6 +6,7 @@ import { BottomNav } from './components/layout/BottomNav'
 import { TopBar } from './components/layout/TopBar'
 import { useGuest } from './hooks/useGuest'
 import { supabase, isSupabaseConfigured } from './lib/supabase'
+import { AdminPage } from './pages/AdminPage'
 import { ChecklistPage } from './pages/ChecklistPage'
 import { DesafioPage } from './pages/DesafioPage'
 import { FeedPage } from './pages/FeedPage'
@@ -38,6 +39,10 @@ function AppInner() {
   useEffect(() => {
     if (guest) loadXp()
   }, [guest, loadXp])
+
+  if (location.pathname === '/painel-do-casal') {
+    return <AdminPage />
+  }
 
   if (!guest) return <LoginPage onLogin={login} loading={loading} />
 

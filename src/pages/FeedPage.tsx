@@ -5,12 +5,12 @@ import { MediaCard } from '../components/ui/MediaCard'
 import { Button } from '../components/ui/Button'
 import { LocalModeBanner } from '../components/ui/LocalModeBanner'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
+import { prepareFile } from '../lib/mediaUtils'
 import type { PhotoSubmission, Guest } from '../lib/supabase'
 
 type Props = { guest: Guest }
 
 const BUCKET = 'wedding-media'
-const MAX_FILE_MB = 50
 
 export function FeedPage({ guest }: Props) {
   const [submissions, setSubmissions] = useState<PhotoSubmission[]>([])
@@ -55,13 +55,13 @@ export function FeedPage({ guest }: Props) {
     return () => { supabase.removeChannel(channel) }
   }, [loadFeed])
 
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file) return
-    if (file.size > MAX_FILE_MB * 1024 * 1024) {
-      toast.error(`Arquivo muito grande! Máximo ${MAX_FILE_MB}MB.`)
-      return
-    }
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const raw = e.target.files?.[0]
+    if (!raw) return
+    const toastId = raw.type.startsWith('image') ? toast.loading('Comprimindo foto...') : undefined
+    const { file, error } = await prepareFile(raw)
+    if (toastId) toast.dismiss(toastId)
+    if (error) { toast.error(error); return }
     setSelectedFile(file)
     setPreviewUrl(URL.createObjectURL(file))
   }
@@ -82,7 +82,6 @@ export function FeedPage({ guest }: Props) {
 
       const { data: urlData } = supabase.storage.from(BUCKET).getPublicUrl(path)
       const fileType = selectedFile.type.startsWith('video') ? 'video' : 'image'
-
       const { error: insertError } = await supabase.from('photo_submissions').insert({
         guest_id: guest.id,
         challenge_key: null,

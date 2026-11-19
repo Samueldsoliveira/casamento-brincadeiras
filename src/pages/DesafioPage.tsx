@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { DESAFIO_ITEMS, type DesafioItem } from '../data/desafio'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
+import { prepareFile } from '../lib/mediaUtils'
 import type { Guest } from '../lib/supabase'
 import { Button } from '../components/ui/Button'
 import { LocalModeBanner } from '../components/ui/LocalModeBanner'
@@ -44,10 +45,13 @@ export function DesafioPage({ guest, onXpGained }: Props) {
     setCaption('')
   }
 
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file) return
-    if (file.size > 50 * 1024 * 1024) { toast.error('Arquivo muito grande! Máximo 50MB.'); return }
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const raw = e.target.files?.[0]
+    if (!raw) return
+    const toastId = raw.type.startsWith('image') ? toast.loading('Comprimindo foto...') : undefined
+    const { file, error } = await prepareFile(raw)
+    if (toastId) toast.dismiss(toastId)
+    if (error) { toast.error(error); return }
     setSelectedFile(file)
     setPreviewUrl(URL.createObjectURL(file))
   }
