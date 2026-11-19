@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-brand-rose: #E8C0CB;
+  --color-brand-rose-light: #F2D9E0;
+  --color-brand-rose-dark: #D4A0B0;
+  --color-brand-sage: #9A9862;
+  --color-brand-sage-light: #B8B87A;
+  --color-brand-sage-dark: #7A7842;
+  --color-brand-cream: #F8F5F0;
+  --color-brand-cream-dark: #EEE8E0;
+  --color-brand-brown: #6B5B5B;
+  --color-brand-dark: #2C2C2C;
+  --color-brand-gold: #C9A468;
+
+  /* Fonts */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lato', system-ui, sans-serif;
+  --font-script: 'Dancing Script', cursive;
+
+  /* Shadows */
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.14);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #F8F5F0;
+  color: #2C2C2C;
+  font-family: 'Lato', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: #2C2C2C;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #E8C0CB; border-radius: 2px; }
