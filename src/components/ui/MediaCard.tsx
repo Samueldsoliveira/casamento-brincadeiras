@@ -2,20 +2,22 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import type { PhotoSubmission } from '../../lib/supabase'
+import { CHALLENGE_LABELS } from '../../data/desafio'
 
 type Props = {
   submission: PhotoSubmission
   guestId?: string
   onLikeToggle?: (id: string, liked: boolean) => void
+  onClick?: () => void
 }
 
-export function MediaCard({ submission, guestId, onLikeToggle }: Props) {
+export function MediaCard({ submission, guestId, onLikeToggle, onClick }: Props) {
   const [liked, setLiked] = useState(submission._liked_by_me ?? false)
   const [likesCount, setLikesCount] = useState(submission._likes_count ?? 0)
   const [toggling, setToggling] = useState(false)
 
   const challengeLabel = submission.challenge_key
-    ? null
+    ? (CHALLENGE_LABELS[submission.challenge_key] ?? submission.challenge_key.replace(/_/g, ' '))
     : '📦 Cápsula do Tempo'
 
   async function handleLike() {
@@ -51,13 +53,16 @@ export function MediaCard({ submission, guestId, onLikeToggle }: Props) {
       className="bg-white rounded-2xl overflow-hidden shadow-card"
     >
       {/* Media */}
-      <div className="relative bg-brand-cream-dark aspect-square">
+      <div
+        className="relative bg-brand-cream-dark aspect-square cursor-pointer"
+        onClick={onClick}
+      >
         {submission.file_type === 'video' ? (
           <video
             src={submission.file_url}
             className="w-full h-full object-cover"
-            controls
             playsInline
+            muted
           />
         ) : (
           <img
@@ -67,11 +72,14 @@ export function MediaCard({ submission, guestId, onLikeToggle }: Props) {
             loading="lazy"
           />
         )}
-        {challengeLabel && (
-          <span className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-xs font-body font-semibold px-2 py-0.5 rounded-full text-brand-dark">
-            {challengeLabel}
-          </span>
+        {submission.file_type === 'video' && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-10 h-10 rounded-full bg-black/50 flex items-center justify-center text-white text-lg">▶</div>
+          </div>
         )}
+        <span className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-xs font-body font-semibold px-2 py-0.5 rounded-full text-brand-dark">
+          {challengeLabel}
+        </span>
       </div>
 
       {/* Footer */}

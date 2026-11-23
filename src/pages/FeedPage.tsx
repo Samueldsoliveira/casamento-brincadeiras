@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { MediaCard } from '../components/ui/MediaCard'
+import { PhotoGallery } from '../components/ui/PhotoGallery'
 import { Button } from '../components/ui/Button'
 import { LocalModeBanner } from '../components/ui/LocalModeBanner'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
@@ -21,6 +22,7 @@ export function FeedPage({ guest }: Props) {
   const fileRef = useRef<HTMLInputElement>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [galleryIndex, setGalleryIndex] = useState<number | null>(null)
 
   const loadFeed = useCallback(async () => {
     if (!isSupabaseConfigured) { setLoading(false); return }
@@ -144,12 +146,28 @@ export function FeedPage({ guest }: Props) {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.03 }}
               >
-                <MediaCard submission={s} guestId={guest.id} />
+                <MediaCard
+                  submission={s}
+                  guestId={guest.id}
+                  onClick={() => setGalleryIndex(i)}
+                />
               </motion.div>
             ))}
           </AnimatePresence>
         </div>
       )}
+
+      {/* Gallery modal */}
+      <AnimatePresence>
+        {galleryIndex !== null && (
+          <PhotoGallery
+            submissions={submissions}
+            initialIndex={galleryIndex}
+            onClose={() => setGalleryIndex(null)}
+            guestId={guest.id}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Floating add button */}
       <motion.button
