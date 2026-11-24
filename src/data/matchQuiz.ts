@@ -12,66 +12,66 @@ export type MatchQuestion = {
 export const MATCH_QUESTIONS: MatchQuestion[] = [
   {
     id: 'q1',
-    question: 'Fim de semana perfeito:',
+    question: 'Você é daqueles que prefere...',
     answers: [
-      { label: '🏖️ Praia, sol e agitação', team: 'S' },
-      { label: '🏡 Em casa, filmes e quentinha', team: 'M' },
+      { label: '🏠 Ficar em casa', team: 'S' },
+      { label: '🎉 Sair e agitar', team: 'M' },
     ],
   },
   {
     id: 'q2',
-    question: 'Na hora de escolher o almoço:',
+    question: 'Na hora de escolher algo, você...',
     answers: [
-      { label: '🍕 Vai de pizza sem pensar dois vezes', team: 'S' },
-      { label: '🥗 Pesquisa o cardápio antes de decidir', team: 'M' },
+      { label: '⚡ Decide rápido', team: 'S' },
+      { label: '🤔 É muito indeciso(a)', team: 'M' },
     ],
   },
   {
     id: 'q3',
-    question: 'Em uma festa você é:',
+    question: 'Em uma festa você é...',
     answers: [
-      { label: '🎉 O primeiro na pista de dança', team: 'S' },
-      { label: '🛋️ O que fica no cantinho conversando', team: 'M' },
+      { label: '🕺 O primeiro na pista de dança', team: 'M' },
+      { label: '🛋️ O que fica no cantinho conversando', team: 'S' },
     ],
   },
   {
     id: 'q4',
-    question: 'Sua relação com o horário:',
+    question: 'Sua relação com o horário...',
     answers: [
-      { label: '⏰ Sempre 10 minutos adiantado', team: 'M' },
-      { label: '😅 "Já to chegando" (ainda em casa)', team: 'S' },
+      { label: '⏰ Sempre 10 minutos adiantado', team: 'S' },
+      { label: '😅 "Já to chegando" (ainda em casa)', team: 'M' },
     ],
   },
   {
     id: 'q5',
-    question: 'Quando algo dá errado:',
+    question: 'Quando algo dá errado, você...',
     answers: [
-      { label: '🧊 Mantém a calma e resolve', team: 'M' },
-      { label: '😤 Reclama primeiro, resolve depois', team: 'S' },
+      { label: '🧊 Resolve com calma', team: 'S' },
+      { label: '😤 Reclama primeiro, resolve depois', team: 'M' },
     ],
   },
   {
     id: 'q6',
-    question: 'Sua playlist favorita:',
+    question: 'Você é do time que...',
     answers: [
-      { label: '🎵 Pagode, sertanejo e forró', team: 'S' },
-      { label: '🎶 Pop internacional e K-pop', team: 'M' },
+      { label: '🍽️ Come muito', team: 'M' },
+      { label: '🥗 Come pouco', team: 'S' },
     ],
   },
   {
     id: 'q7',
-    question: 'Quando assiste uma série:',
+    question: 'Quando o tempo muda, você...',
     answers: [
-      { label: '📺 Maratona até terminar tudo', team: 'S' },
-      { label: '🌙 Um episódio por dia com calma', team: 'M' },
+      { label: '🤧 Já tá de cama gripado(a)', team: 'S' },
+      { label: '💪 Nem sente, imunidade de aço', team: 'M' },
     ],
   },
   {
     id: 'q8',
-    question: 'Sua forma de demonstrar amor:',
+    question: 'Com qual linguagem do amor você se identifica mais?',
     answers: [
-      { label: '🤗 Abraços, beijos e palavras', team: 'S' },
-      { label: '🎁 Presentes surpresa e atos gentis', team: 'M' },
+      { label: '💬 Palavra de afirmação', team: 'M' },
+      { label: '⏳ Tempo de qualidade', team: 'S' },
     ],
   },
 ]
